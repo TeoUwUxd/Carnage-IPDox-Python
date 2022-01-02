@@ -22,13 +22,15 @@ print(f'''{Fore.RED}
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝      
 
-                    Creado por TeoUwUxd | Versión 0.1
+                    Creado por TeoUwUxd | Versión v0.2
 
         
         [ 1 ] Generar IPv4 Falsa
         [ 2 ] IPLoggers
         [ 3 ] Geolocalizar IP
         [ 4 ] Escanear la red wifi
+        [ 5 ] Listas de proxies
+        [ 6 ] Conectarse a un proxy
         [ 99 ] Cerrar la terminal
 
 ''')
@@ -70,7 +72,7 @@ def IPLOGGER():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                    Creado por TeoUwUxd | Versión 0.1
+                    Creado por TeoUwUxd | Versión v0.2
 
 
         [ 1 ] IPLogger.org
@@ -124,8 +126,8 @@ def IPLOGGER():
         exit()
 
     elif opcionIPL == 99:
+        print(f"{Style.RESET_ALL} ")
         exit()
-        print(f"{Style.RESET_ALL}")
 
 def GEOIP():
     clear()
@@ -138,7 +140,7 @@ def GEOIP():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                    Creado por TeoUwUxd | Versión 0.1
+                    Creado por TeoUwUxd | Versión v0.2
 
 
         [ 1 ] Geolocalizar IP
@@ -205,6 +207,71 @@ def SCAN():
     for sent,received in clients:
         print(f"{received.psrc}"+" "*18+f"{received.hwdst}")
 
+def L_PROXIES():
+    clear()
+    print(f'''{Fore.RED}
+
+         ██████╗ █████╗ ██████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗
+        ██╔════╝██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝
+        ██║     ███████║██████╔╝██╔██╗ ██║███████║██║  ███╗█████╗  
+        ██║     ██╔══██║██╔══██╗██║╚██╗██║██╔══██║██║   ██║██╔══╝  
+        ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
+         ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
+
+                    Creado por TeoUwUxd | Versión v0.2
+
+
+        [ 1 ] Free-Proxy-List
+        [ 00 ] Volver al menú principal
+        [ 99 ] Salir
+
+    ''')
+
+    opcionLPRO = int(input("  [~] Elije una opción: "))
+
+    def FREE_PROXY_LIST():
+        try:
+            url = ['https://free-proxy-list.net/']
+
+            webbrowser.register('chrome',None,webbrowser.BackgroundBrowser("C://Program Files//Google//Chrome//Application//chrome.exe"))
+
+            h = webbrowser.get('chrome')
+            h.open(url[0])
+
+            print(f"{Fore.GREEN}  [+] La página web se ha podido abrir correctamente! {Style.RESET_ALL}")
+
+        except:
+            print(f"{Fore.RED}  [-] Ha ocurrido un error y no se ha podido abrir la página web correctamente! {Style.RESET_ALL}")
+            print("")
+
+    if opcionLPRO == 1:
+        FREE_PROXY_LIST()
+
+    elif opcionLPRO == 00:
+        os.system("python carnage.py")
+        exit()
+
+    elif opcionLPRO == 99:
+        print(f"{Style.RESET_ALL} ")
+        exit()
+
+def VPN():
+    print(f"{Fore.YELLOW}\n  AVISO: Esta conexión proxy puede no ser 100% estable! Esto puede depender de muchos factores.")
+    ip = str(input(f'{Fore.RED}\n  [~] Introduce un proxy con el puerto (ejemplo: 191.242.178.209:3128): '))
+
+    proxies = {
+        'https': 'https://' + ip
+    }
+
+    try:
+        response = requests.get("https://ipinfo.io/json", proxies=proxies)
+        print(f"{Fore.GREEN}\n [+] Se ha conectado correctamente! {Fore.RED}")
+        print(response.text)
+
+    except:
+        print(f"{Fore.RED}\n  [-] No se ha podido conectar correctamente!")
+
+
 
 if opcion == 1:
     FALSA_IP()
@@ -218,12 +285,15 @@ elif opcion == 3:
 elif opcion == 4:
     SCAN()
 
+elif opcion == 5:
+    L_PROXIES()
+
+elif opcion == 6:
+    VPN()
+
 elif opcion == 99:
-    exit()
     print(f"{Style.RESET_ALL}")
-
-
-
+    exit()
 
 
 
