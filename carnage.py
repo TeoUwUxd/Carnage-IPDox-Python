@@ -1,9 +1,11 @@
 import random
+from re import VERBOSE
 import socket
 import os
 import webbrowser
 import requests
 import json
+import scapy.all as scapy
 
 from colorama import Fore
 from colorama import Style
@@ -20,12 +22,13 @@ print(f'''{Fore.RED}
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝      
 
-                        | Creado por TeoUwUxd |
+                    Creado por TeoUwUxd | Versión 0.1
 
         
-        [ 1 ] Generar ipv4 Falsa
+        [ 1 ] Generar IPv4 Falsa
         [ 2 ] IPLoggers
         [ 3 ] Geolocalizar IP
+        [ 4 ] Escanear la red wifi
         [ 99 ] Cerrar la terminal
 
 ''')
@@ -67,11 +70,12 @@ def IPLOGGER():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                        | Creado por TeoUwUxd |
+                    Creado por TeoUwUxd | Versión 0.1
 
 
         [ 1 ] IPLogger.org
         [ 2 ] Grabify
+        [ 00 ] Volver al menú principal
         [ 99 ] Salir
 
     ''')
@@ -115,6 +119,10 @@ def IPLOGGER():
     elif opcionIPL == 2:
         Grabify()
 
+    elif opcionIPL == 00:
+        os.system("python carnage.py")
+        exit()
+
     elif opcionIPL == 99:
         exit()
         print(f"{Style.RESET_ALL}")
@@ -130,11 +138,12 @@ def GEOIP():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                        | Creado por TeoUwUxd |
+                    Creado por TeoUwUxd | Versión 0.1
 
 
         [ 1 ] Geolocalizar IP
         [ 2 ] Reverse DNS IP
+        [ 00 ] Volver al menú principal
         [ 99 ] Salir
 
     ''')
@@ -162,7 +171,7 @@ def GEOIP():
             print("")
             print(f"{Fore.RED}  [-] La información no se ha conseguido correctamente!{Style.RESET_ALL}")
 
-    if opcionGIP == 2:
+    elif opcionGIP == 2:
 
         print("")
         ipgipdns = str(input("  [~] IP: "))
@@ -176,9 +185,25 @@ def GEOIP():
         except:
             print(f"{Fore.RED}  [-] No se ha podido conseguir la Reverse DNS IP correctamente! {Style.RESET_ALL}")
 
-    if opcionGIP == 99:
+    elif opcionGIP == 00:
+        os.system("python carnage.py")
+        exit()
+
+    elif opcionGIP == 99:
         print(f"{Style.RESET_ALL}")
         exit()
+
+def SCAN():
+    print(" ")
+    request = scapy.ARP()
+    request.pdst = str(input("  [~] Por favor, inserta la ip y el rango que quieras escanear (ejemplo: 192.168.150.75/24): "))
+    broadcast = scapy.Ether()
+    broadcast.dst = 'ff:ff:ff:ff:ff:ff'
+    request_broadcast = broadcast/request
+    clients = scapy.srp(request_broadcast, timeout = 3,verbose=0)[0]
+    print("Ip"+" "*30 +"Mac")
+    for sent,received in clients:
+        print(f"{received.psrc}"+" "*18+f"{received.hwdst}")
 
 
 if opcion == 1:
@@ -190,6 +215,15 @@ elif opcion == 2:
 elif opcion == 3:
     GEOIP()
 
+elif opcion == 4:
+    SCAN()
+
 elif opcion == 99:
     exit()
     print(f"{Style.RESET_ALL}")
+
+
+
+
+
+
