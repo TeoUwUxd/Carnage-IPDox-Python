@@ -1,5 +1,5 @@
 # Carnage-IPDox-Python
-Una herramienta de (sobretodo) doxxeo centrada en la IP (IPv4) para el sistema operativo Windows, hecho en python.
+Una herramienta multifuncional centrada en el hacking ético, para el sistema operativo Windows, hecho en python.
 
 # Instalación  y ejecución
 
