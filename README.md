@@ -19,4 +19,5 @@ Ejecuta el archivo:
     
 # Captura de pantalla:
 
-![screenshot](https://user-images.githubusercontent.com/93826981/147876349-fd9b06d8-8209-48ba-bdae-5c3b3697996a.png)
+![screenshot](https://user-images.githubusercontent.com/93826981/147881818-14c69ad8-6a2a-4061-b54f-9c4bf68f085d.png)
+
